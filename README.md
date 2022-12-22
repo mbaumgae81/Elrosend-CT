@@ -1,7 +1,7 @@
 Elrosend-CT
 ===========
 
-Elro Funksteckdosen am Cubietruck | getestet nur mit Elro AB440
+Elro Funksteckdosen Steuern am Cubietruck | getestet nur mit Elro AB440
 
 Da es auf dem Cubietruck keine alternative zu RCSwitch/WiringPI gab war es wesentlich schwieriger Funksteckdosen anzusprechen.
 
