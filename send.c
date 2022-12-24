@@ -1,10 +1,11 @@
 ##### benötigt gpio_lib.h
 ##### von    --->>    https://github.com/youyudehexie/node-cubieboard-gpio/blob/master/lib/gpio_lib.h
 ##### Aufruf send Steckdosennr Zustand
-##### z.B. send 1 1		Schaltet Steckdose 1 Ein
+##### z.B. send 1 1 10101		Schaltet aus dem SystemCode 10101 die Steckdose 1 Ein
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "gpio_lib.h"
 #define PB2   SUNXI_GPB(2)
@@ -96,18 +97,27 @@ return -1;
  //char* systemCode = argv[1];
   int unitCode = atoi(argv[1]);
   int command  = atoi(argv[2]);
+  char systemCode[5]; // wird z.B. als 10101 uebergeben (5-stellig mit 0 oder 1)
+  strcpy(systemCode, argv[3]);  
 set_output();
 
 
-int i, j;
+int i, j, k;
 
 for(i=0; i<10; i++) {
 	sync_send();
-	switch0(); //1 Hauscode au Standart alle DIP s up
-	switch0(); //2
-	switch0(); //3
-	switch0(); //4
-	switch0(); //5 Hauscode;
+        for(k=0 ; k<5 ; k++) //prüft den SystemCode auf 0 oder 1 bereitet die Sendung entsprechend vor.
+        {
+            if( systemCode[k]!='1' )
+            {
+                switchF();
+            }
+            else
+            {
+                switch0();
+            }
+        }
+
 
 	switch (unitCode)
 	 {
